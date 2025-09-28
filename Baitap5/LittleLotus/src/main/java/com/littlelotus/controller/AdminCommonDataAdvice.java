@@ -8,10 +8,12 @@ import jakarta.servlet.http.HttpServletRequest;
 
 
 @ControllerAdvice(basePackages = "com.littlelotus.controller") 
-public class AdminCommonDataAdvice {
+public class AdminCommonDataAdvice 
+{
 
     @ModelAttribute
-    public void addCommonAttributes(HttpServletRequest request, Model model) {
+    public void addCommonAttributes(HttpServletRequest request, Model model) 
+    {
         if (request != null) {
             model.addAttribute("currentUri", request.getRequestURI());
         }

@@ -6,14 +6,14 @@
 		<item key="isRegEx" value="false"/>
 		<item key="selection" value="th:classappend"/>
 		<list key="findhistory">
+			<item value="video-feed"/>
+			<item value="${videos}"/>
+			<item value="footer"/>
+			<item value="div class=&quot;header"/>
+			<item value="Long uploaderId, Long categoryId"/>
 			<item value="&lt;/video&gt;"/>
 			<item value="&lt;video&gt;"/>
 			<item value="&lt;a th:href=&quot;@{/admin}&quot; class=&quot;list-group-item&quot;"/>
-			<item value="th:classappend"/>
-			<item value="showEditForm"/>
-			<item value="PathVariable"/>
-			<item value="starter"/>
-			<item value="thymeleaf"/>
 		</list>
 		<list key="replacehistory">
 		</list>

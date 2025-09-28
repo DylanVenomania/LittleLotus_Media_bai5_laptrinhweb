@@ -28,7 +28,8 @@ public class VideoService
     
     // tao/ capnhat
     @Transactional
-    public Video save(Video video, Long uploaderId, Long categoryId) {
+    public Video save(Video video, Long uploaderId, Long categoryId) 
+    {
        
         Optional<User> uploader = userRepository.findById(uploaderId);
         Optional<Category> category = categoryRepository.findById(categoryId);
@@ -44,6 +45,11 @@ public class VideoService
         
         
         return videoRepository.save(video);
+    }
+    
+    public void save(Video video) 
+    {
+        videoRepository.save(video); 
     }
 
     // doc ( all)

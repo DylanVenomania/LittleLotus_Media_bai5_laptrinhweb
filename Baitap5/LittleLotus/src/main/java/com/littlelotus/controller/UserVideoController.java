@@ -1,0 +1,94 @@
+package com.littlelotus.controller;
+
+import com.littlelotus.entity.Category;
+import com.littlelotus.entity.User;
+import com.littlelotus.entity.Video;
+import com.littlelotus.service.CategoryService;
+import com.littlelotus.service.VideoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam; 
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import jakarta.servlet.http.HttpSession;
+import java.util.List;
+
+@Controller
+@RequestMapping("/user/videos")
+public class UserVideoController 
+{
+
+    @Autowired
+    private VideoService videoService;
+    
+    @Autowired
+    private CategoryService categoryService;
+
+   
+    private User getLoggedInUser(HttpSession session) 
+    {
+        return (User) session.getAttribute("loggedInUser");
+    }
+
+    // 1. Hien thi form dang video
+    @GetMapping("/upload")
+    public String showUploadForm(Model model, HttpSession session, RedirectAttributes ra) 
+    {
+        User loggedInUser = getLoggedInUser(session);
+        if (loggedInUser == null) {
+            ra.addFlashAttribute("errorMessage", "Vui lòng đăng nhập để đăng video.");
+            return "redirect:/login"; 
+        }
+
+        List<Category> categories = categoryService.findAll();
+        
+        model.addAttribute("video", new Video());
+        model.addAttribute("categories", categories);
+        model.addAttribute("pageTitle", "Đăng Video Mới");
+        
+        return "user/upload_form";
+    }
+
+    // 2. xu ly dang video
+    @PostMapping("/save")
+    public String saveVideo(@ModelAttribute Video video, 
+                            @RequestParam("categoryId") Long categoryId, 
+                            HttpSession session, 
+                            RedirectAttributes ra) 
+    {
+        
+        User uploader = getLoggedInUser(session);
+
+        if (uploader == null) 
+        {
+            ra.addFlashAttribute("errorMessage", "Phiên đăng nhập đã hết hạn.");
+            return "redirect:/login";
+        }
+        
+        try 
+        {
+            
+            video.setUploader(uploader);
+            Category category = categoryService.findById(categoryId).orElseThrow(() -> new RuntimeException("Category không hợp lệ."));
+            video.setCategory(category);
+            
+         
+        
+            videoService.save(video);
+            
+            ra.addFlashAttribute("successMessage", "Video đã được đăng thành công!");
+            return "redirect:/"; 
+            
+        } 
+        catch (RuntimeException e) 
+        {
+            ra.addFlashAttribute("errorMessage", "Lỗi khi lưu video: " + e.getMessage());
+            return "redirect:/user/videos/upload";
+        }
+    }
+}

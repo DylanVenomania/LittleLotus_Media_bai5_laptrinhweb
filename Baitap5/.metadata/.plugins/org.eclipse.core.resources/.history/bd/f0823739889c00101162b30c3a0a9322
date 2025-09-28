@@ -1,0 +1,211 @@
+/* Màu sắc chủ đạo Aesthetic: Be, Hồng nhạt, Xanh mint */
+:root {
+    --primary-color: #a8dadc; /* Xanh Mint nhẹ */
+    --secondary-color: #f4a261; /* Cam đất nhẹ */
+    --bg-color: #f7f7f7; /* Nền trắng xám nhạt */
+    --card-bg-color: #ffffff; /* Nền card trắng */
+    --text-color: #454545; /* Chữ xám đậm */
+    --font-serif: 'Lora', serif; /* Font chữ thanh lịch */
+    --font-sans: 'Nunito', sans-serif;
+}
+
+/*  Bỏ qua @import vì  đã import link trong HTML */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body 
+{
+    font-family: var(--font-sans);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+
+header 
+{
+    background-color: var(--card-bg-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 
+{
+    font-family: var(--font-serif);
+    font-weight: 700;
+    color: var(--primary-color);
+    letter-spacing: 1px;
+}
+
+.header-links a 
+{
+    text-decoration: none;
+    color: var(--text-color);
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.header-links a:hover 
+{
+    background-color: #eee;
+    color: var(--primary-color);
+}
+
+
+.video-feed 
+{
+    max-width: 450px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+.video-item 
+{
+    background-color: var(--card-bg-color);
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    margin-bottom: 25px;
+    overflow: hidden;
+    transition: transform 0.3s;
+}
+
+.video-item:hover {
+    transform: translateY(-3px);
+}
+
+.video-container 
+{
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; 
+    height: 0;
+}
+.video-container iframe 
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+}
+
+.video-info 
+{
+    padding: 15px 20px;
+}
+
+.video-info h3 
+{
+    font-family: var(--font-serif);
+    color: var(--secondary-color);
+    margin-bottom: 8px;
+}
+
+.video-info p {
+    font-size: 13px;
+    color: #888;
+}
+
+/* Form Styling (Login/Upload) */
+.login-box, .upload-form-box 
+{
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 30px;
+    background: var(--card-bg-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.login-box label, .upload-form-box label 
+{
+    display: block;
+    margin-top: 15px;
+    font-weight: 600;
+    color: #555;
+}
+
+.login-box input, .upload-form-box input, .upload-form-box textarea, .upload-form-box select 
+{
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.login-box button, .upload-form-box button 
+{
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.login-box button:hover, .upload-form-box button:hover 
+{
+    background-color: #8dcad6;
+}
+
+/* Footer */
+footer 
+{
+    text-align: center;
+    padding: 20px;
+    color: #aaa;
+    font-size: 12px;
+}
+
+/* Icon cho tên trang web */
+header h1::before 
+{
+    content: "\1F33F"; /* đây là unicode của icon lá cây/cỏ  */
+    margin-right: 8px;
+    color: var(--primary-color);
+    font-size: 1.1em;
+}
+
+/* Khu vực trang trí */
+.decoration-container 
+{
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 10px 0;
+    text-align: center;
+    color: #b3c890; 
+    font-size: 1.2em;
+}
+
+
+.decoration-element 
+{
+    margin: 0 15px;
+    opacity: 0.7;
+    display: inline-block;
+}
+
+.decoration-element.flower 
+{
+    content: "\1F33C"; 
+}
+
+.decoration-element.vine 
+{
+    content: "\1F343"; 
+}
+
+

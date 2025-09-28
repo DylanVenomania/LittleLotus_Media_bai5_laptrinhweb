@@ -1,0 +1,110 @@
+/* TÔNG MÀU & PHÔNG CHỮ CHUNG */
+:root {
+    --main-bg: #fffcf9; /* Nền trắng kem nhẹ */
+    --card-bg: #ffffff;
+    --text-primary: #333333;
+    --text-secondary: #777777;
+    --accent-color: #f7a072; /* Màu nhấn (Cam đào nhẹ) */
+    --border-color: #e0e0e0;
+    --aesthetic-font: 'Arial', sans-serif; /* Phông chữ cơ bản */
+}
+
+body {
+    font-family: var(--aesthetic-font);
+    background-color: var(--main-bg);
+    color: var(--text-primary);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+/* HEADER */
+header {
+    background-color: var(--card-bg);
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    font-size: 1.8rem;
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+.header-links a {
+    margin-left: 15px;
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.header-links a:hover {
+    color: var(--accent-color);
+}
+
+/* VIDEO FEED */
+.video-feed {
+    max-width: 650px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+h2 {
+    text-align: center;
+    color: var(--text-primary);
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.video-item {
+    background-color: var(--card-bg);
+    padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* Tỷ lệ 16:9 */
+    height: 0;
+    margin-bottom: 15px;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    border: none;
+}
+
+/* THÔNG TIN VIDEO */
+.video-item h3 {
+    font-size: 1.3rem;
+    margin-top: 0;
+    color: var(--text-primary);
+}
+
+.video-item p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 20px;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    background-color: var(--card-bg);
+    margin-top: 40px;
+}

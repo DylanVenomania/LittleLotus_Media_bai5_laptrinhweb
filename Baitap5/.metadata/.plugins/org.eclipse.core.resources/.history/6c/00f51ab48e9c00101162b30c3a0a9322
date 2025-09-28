@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" 
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle}"></title>
+    </head>
+<body>
+    <h1>Đăng Video Mới</h1>
+    
+    <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
+
+    <form th:action="@{/user/videos/save}" th:object="${video}" method="post">
+        
+        <label>Tiêu đề:</label>
+        <input type="text" th:field="*{title}" required /><br/>
+
+        <label>URL Video (Embed Link):</label>
+        <input type="text" th:field="*{videoUrl}" required /><br/>
+        
+        <label>Mô tả:</label>
+        <textarea th:field="*{description}"></textarea><br/>
+        
+        <label>Danh mục:</label>
+        <select name="categoryId" required>
+            <option value="">-- Chọn Danh mục --</option>
+            <option th:each="cat : ${categories}" 
+                    th:value="${cat.id}" 
+                    th:text="${cat.name}">Tên Danh mục</option>
+        </select><br/>
+        
+        <button type="submit">Đăng Video</button>
+    </form>
+    
+    <a th:href="@{/}">Quay lại Trang Chủ</a>
+</body>
+</html>

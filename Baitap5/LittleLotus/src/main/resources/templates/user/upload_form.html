@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Video Mới</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Nunito:wght@300;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/public.css}">
+
+    <style>
+        /* Tùy chỉnh nhẹ cho form Upload */
+        .upload-form-box {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 35px;
+            background: var(--card-bg-color);
+            border-radius: 15px; /* Bo góc mềm mại hơn */
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+        .upload-form-box h2 {
+            font-family: var(--font-serif);
+            color: var(--secondary-color); /* Cam đất nhẹ */
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .upload-form-box label {
+            font-size: 1.05em;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        .upload-form-box input[type="text"], 
+        .upload-form-box textarea, 
+        .upload-form-box select {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 12px;
+            background-color: #fcfcfc;
+        }
+        .upload-form-box input:focus, 
+        .upload-form-box textarea:focus, 
+        .upload-form-box select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 1px var(--primary-color);
+        }
+        .upload-form-box button {
+            background-color: var(--primary-color);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 style="display: inline-block; margin: 0;">Little Lotus Stream</h1>
+        
+        <div class="header-links">
+            <a th:href="@{/}">Trang Chủ</a>
+            |
+            <span th:if="${loggedInUser != null}" th:text="'Chào, ' + ${loggedInUser.username}" style="margin-right: 10px; color: #888;"></span>
+            <a th:href="@{/logout}">Logout</a>
+        </div>
+    </header>
+
+    <div class="upload-form-box">
+        <h2><i class="fas fa-cloud-upload-alt" style="margin-right: 10px;"></i> Chia sẻ khoảnh khắc Aesthetic</h2>
+        
+        <form th:action="@{/user/videos/save}" th:object="${video}" method="post">
+            <input type="hidden" th:field="*{id}" />
+            
+            <label for="title"><i class="fas fa-pen-nib"></i> Tiêu đề Video:</label>
+            <input type="text" id="title" th:field="*{title}" required placeholder="Tiêu đề video của bạn..." /><br/>
+
+            <label for="videoUrl"><i class="fas fa-link"></i> URL Video (Embed Link):</label>
+            <input type="text" id="videoUrl" th:field="*{videoUrl}" required placeholder="https://www.youtube.com/embed/..." /><br/>
+            
+            <label for="description"><i class="fas fa-scroll"></i> Mô tả:</label>
+            <textarea id="description" th:field="*{description}" rows="5" placeholder="Chia sẻ cảm hứng của bạn..."></textarea><br/>
+            
+            <label for="category"><i class="fas fa-tag"></i> Danh mục:</label>
+            <select id="category" name="categoryId" required>
+                <option value="">-- Chọn Danh mục --</option>
+                <option th:each="cat : ${categories}" 
+                        th:value="${cat.id}" 
+                        th:text="${cat.name}"
+                        th:selected="${video.category != null and video.category.id == cat.id}">Tên Danh mục</option>
+            </select><br/>
+            
+            <button type="submit">
+                <i class="fas fa-check-circle"></i> Hoàn tất và Đăng tải
+            </button>
+            
+            <a th:href="@{/}" style="margin-left: 20px; color: #888;">Hủy</a>
+        </form>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 Little Lotus</p>
+    </footer>
+</body>
+</html>

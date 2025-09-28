@@ -4,62 +4,39 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{admin/layout}">
 <head>
-    <title layout:title-fragment="title">[[${pageTitle}]]</title>
+    <title layout:title-fragment="title" th:text="${pageTitle}"></title>
 </head>
 <body>
-    <div layout:fragment="content">
-        <h1>[[${pageTitle}]]</h1>
-
-        <form th:action="@{/admin/videos/save}" method="post" th:object="${video}">
+    <main layout:fragment="content">
+        <h2 th:text="${pageTitle}">Thêm Video Mới</h2>
+        
+        <form th:action="@{/admin/videos/save}" th:object="${video}" method="post" style="max-width: 600px; margin-top: 20px;">
             <input type="hidden" th:field="*{id}" />
 
-            <div>
-                <label>Tiêu đề Video:</label>
-                <input type="text" th:field="*{title}" required minlength="2" maxlength="255" />
-            </div>
-            
-            <div>
-                <label>URL Video:</label>
-                <input type="text" th:field="*{videoUrl}" required />
-            </div>
+            <label>Tiêu đề:</label>
+            <input type="text" th:field="*{title}" required /><br/>
 
-            <div>
-                <label>Mô tả:</label>
-                <textarea th:field="*{description}" rows="3"></textarea>
-            </div>
+            <label>URL Video (Embed Link):</label>
+            <input type="text" th:field="*{videoUrl}" required /><br/>
             
-            <div>
-                <label>Đã xuất bản:</label>
-                <input type="checkbox" th:field="*{published}" />
-            </div>
-
-            <div>
-                <label>Uploader (User):</label>
-                <select name="uploaderId" required>
-                    <option value="">-- Chọn Uploader --</option>
-                    <option th:each="user : ${users}" 
-                            th:value="${user.id}" 
-                            th:text="${user.username} + ' (' + ${user.id} + ')'"
-                            th:selected="${video.uploader != null and user.id == video.uploader.id}">
-                    </option>
-                </select>
-            </div>
+            <label>Mô tả:</label>
+            <textarea th:field="*{description}" rows="4"></textarea><br/>
             
-            <div>
-                <label>Category:</label>
-                <select name="categoryId" required>
-                    <option value="">-- Chọn Category --</option>
-                    <option th:each="cat : ${categories}" 
-                            th:value="${cat.id}" 
-                            th:text="${cat.name}"
-                            th:selected="${video.category != null and cat.id == video.category.id}">
-                    </option>
-                </select>
-            </div>
-
-            <button type="submit" class="btn btn-submit">Lưu Video</button>
-            <a th:href="@{/admin/videos}" class="btn btn-cancel">Hủy</a>
+            <label>Danh mục:</label>
+            <select name="categoryId" required>
+                <option value="">-- Chọn Danh mục --</option>
+                <option th:each="cat : ${categories}" 
+                        th:value="${cat.id}" 
+                        th:text="${cat.name}"
+                        th:selected="${video.category != null and video.category.id == cat.id}">Tên Danh mục</option>
+            </select><br/>
+            
+            <button type="submit">
+                <i class="fas fa-save"></i> Lưu Video
+            </button>
+            
+            <a th:href="@{/admin/videos}" style="margin-left: 20px; color: #555;">Hủy</a>
         </form>
-    </div>
+    </main>
 </body>
 </html>

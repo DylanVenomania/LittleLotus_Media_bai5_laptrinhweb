@@ -3,6 +3,7 @@ package com.littlelotus.controller;
 import com.littlelotus.entity.User;
 import com.littlelotus.service.VideoService;
 import com.littlelotus.service.UserService; 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -71,7 +72,10 @@ public class AppController
     }
     
     @GetMapping("/")
-    public String viewHomePage(Model model) {
+    public String viewHomePage(Model model, HttpSession session) 
+    {
+    	User loggedInUser = (User) session.getAttribute("loggedInUser");
+    	model.addAttribute("loggedInUser", loggedInUser);
         model.addAttribute("videos", videoService.findAll()); 
         return "home/index"; 
     }

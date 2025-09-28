@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Little Lotus - Xem Videos Hot</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Nunito:wght@300;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/public.css}">
+</head>
+<body>
+    <header>
+        <h1 style="display: inline-block; margin: 0;">Little Lotus Stream</h1>
+        
+        <div class="header-links">
+            <th:block th:if="${loggedInUser != null}">
+                <a th:href="@{/user/videos/upload}" style="font-weight: bold; color: var(--primary-color);">
+                    + Đăng Video
+                </a> 
+                |
+                <span th:text="'Chào, ' + ${loggedInUser.username}" style="margin-right: 10px; color: #888;"></span>
+                <a th:href="@{/logout}">Logout</a>
+                
+                <th:block th:if="${loggedInUser.username == 'superadmin'}">
+                    | <a th:href="@{/admin}">Admin</a>
+                </th:block>
+            </th:block>
+
+            <th:block th:unless="${loggedInUser != null}">
+                <a th:href="@{/login}">Đăng nhập</a>
+            </th:block>
+            
+            </div>
+    </header>
+
+    <div id="main-layout">
+        <div class="content-wrapper">
+            
+            <div class="aesthetic-sidebar left-sidebar">
+                <div class="decoration-cluster">
+                    <span style="font-size: 2em;">&#127807;</span> <p style="font-size: 0.8em; color: #aaa;">Nature</p>
+                    <span style="font-size: 1.8em;">&#127804;</span> </div>
+                
+                <div class="decoration-cluster">
+                    <span style="font-size: 2.5em; color: #a8dadc;">&#9733;</span> <p style="font-size: 0.8em; color: #aaa;">Inspiration</p>
+                    <span style="font-size: 1.5em;">&#127769;</span> </div>
+            </div>
+
+            <main class="video-feed">
+                <h2 style="text-align: center; margin-bottom: 25px; font-family: var(--font-serif); color: #555;">Dòng Video Mới Nhất</h2>
+                
+                <div class="decoration-container">
+                    <span class="decoration-element flower">&#127804;</span> 
+                    <span class="decoration-element vine">&#127811;</span> 
+                    <span class="decoration-element flower">&#127800;</span> 
+                    <span class="decoration-element vine">&#127807;</span> 
+                </div>
+
+                <div th:each="video : ${videos}" class="video-item">
+                    <div class="video-container">
+                        <iframe th:src="${video.videoUrl}" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    
+                    <div class="video-info">
+                        <h3><span style="color: var(--primary-color); margin-right: 5px;">&#10022;</span><span th:text="${video.title}">Tiêu đề Video</span></h3>
+                        <p><span style="color: #ccc; margin-right: 5px;">&#9733;</span><strong>Người đăng:</strong> <span th:text="${video.uploader.username}">Người dùng</span></p> 
+                        <p><span style="color: #ccc; margin-right: 5px;">&#9728;</span>Danh mục: <span th:text="${video.category.name}">Tên Danh mục</span></p>
+                        <p th:text="${video.description}">Mô tả ngắn gọn về video.</p>
+                    </div>
+                </div>
+                
+                <div th:if="${videos.isEmpty()}" style="text-align: center; padding: 30px;">
+                    <p style="font-style: italic; color: #888;">Chưa có video nào được đăng. Hãy là người đầu tiên!</p>
+                </div>
+            </main>
+            
+            <div class="aesthetic-sidebar right-sidebar">
+                <div class="decoration-cluster">
+                    <span style="font-size: 2em;">&#127793;</span> <p style="font-size: 0.8em; color: #aaa;">Magic</p>
+                    <span style="font-size: 1.5em; color: #f4a261;">&#10084;</span> </div>
+                
+                <div class="decoration-cluster">
+                    <span style="font-size: 1.8em;">&#127775;</span> <p style="font-size: 0.8em; color: #aaa;">Dreams</p>
+                    <span style="font-size: 2.2em;">&#127798;</span> </div>
+            </div>
+
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 Little Lotus</p>
+    </footer>
+</body>
+</html>

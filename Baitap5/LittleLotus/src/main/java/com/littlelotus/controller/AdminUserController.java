@@ -2,6 +2,7 @@ package com.littlelotus.controller;
 
 import com.littlelotus.entity.User;
 import com.littlelotus.service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,56 +11,68 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/admin/users")
-public class AdminUserController {
+public class AdminUserController 
+{
 
     @Autowired
     private UserService userService;
 
-    // 1. Hiển thị Danh sách Users
+    // 1. Hiển thị danh sách
     @GetMapping
-    public String listUsers(Model model) {
+    public String listUsers(Model model) 
+    {
         model.addAttribute("users", userService.findAll());
-        return "admin/users/list"; // Đã sửa: Trả về đường dẫn đầy đủ
+        return "admin/users/list";
     }
 
-    // 2. Hiển thị Form Thêm mới User
+    // 2. Hiển thị form thêm
     @GetMapping("/new")
-    public String showNewForm(Model model) {
+    public String showNewForm(Model model) 
+    {
         model.addAttribute("user", new User());
         model.addAttribute("pageTitle", "Thêm User Mới");
-        return "admin/users/form"; // Đã sửa: Trả về đường dẫn đầy đủ
+        return "admin/users/form"; 
     }
 
-    // 3. Xử lý Thêm/Sửa User
+    // 3. Xử ly them sua
     @PostMapping("/save")
-    public String saveUser(User user, RedirectAttributes ra) {
+    public String saveUser(User user, RedirectAttributes ra) 
+    {
         userService.save(user);
         ra.addFlashAttribute("message", "User đã được lưu thành công!");
         return "redirect:/admin/users";
     }
 
-    // 4. Hiển thị Form Sửa User
+    // 4. Hiển thị form sửa user
     @GetMapping("/edit/{id}")
-    public String showEditForm(@PathVariable("id") Long id, Model model, RedirectAttributes ra) {
-        try {
+    public String showEditForm(@PathVariable("id") Long id, Model model, RedirectAttributes ra) 
+    {
+        try 
+        {
             User user = userService.findById(id)
                                  .orElseThrow(() -> new RuntimeException("User not found"));
             model.addAttribute("user", user);
             model.addAttribute("pageTitle", "Sửa User (ID: " + id + ")");
-            return "admin/users/form"; // Đã sửa: Trả về đường dẫn đầy đủ
-        } catch (RuntimeException e) {
+            return "admin/users/form"; 
+        } 
+        catch (RuntimeException e) 
+        {
             ra.addFlashAttribute("message", e.getMessage());
             return "redirect:/admin/users";
         }
     }
 
-    // 5. Xử lý Xóa User
+    // 5. xoa user
     @GetMapping("/delete/{id}")
-    public String deleteUser(@PathVariable("id") Long id, RedirectAttributes ra) {
-        try {
+    public String deleteUser(@PathVariable("id") Long id, RedirectAttributes ra) 
+    {
+        try 
+        {
             userService.deleteById(id);
             ra.addFlashAttribute("message", "User ID " + id + " đã được xóa thành công.");
-        } catch (Exception e) {
+        } 
+        catch (Exception e) 
+        {
             ra.addFlashAttribute("message", "Không thể xóa User ID " + id + ".");
         }
         return "redirect:/admin/users";
