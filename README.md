@@ -17,9 +17,9 @@
 
 ##  Tài khoản demo
 
-admin - 123456 : admin
-cam - 123456 : user
-hoa - 123456 : user
+***admin - 123456 : admin***
+***cam - 123456 : user***
+***hoa - 123456 : user***
 ---
 
 ##  Hình ảnh minh hoạ, minh chứng
