@@ -1,0 +1,29 @@
+spring.application.name=LittleLotus
+
+# 1. Cấu hình Server
+server.port=8080
+# 2. Cấu hình Database (MS SQL Server)
+spring.datasource.url=jdbc:sqlserver://localhost:1433;databaseName=LittleLotusMediaDB; trustServerCertificate=true
+spring.datasource.username=sa
+spring.datasource.password=123456789
+spring.datasource.driver-class-name=com.microsoft.sqlserver.jdbc.SQLServerDriver
+
+# 3. Cấu hình JPA (Hibernate/Jakarta Persistence)
+spring.jpa.hibernate.ddl-auto=update 
+spring.jpa.show-sql=true 
+spring.jpa.database-platform=org.hibernate.dialect.SQLServerDialect
+
+# Cấu hình Thymeleaf 
+spring.thymeleaf.prefix=classpath:/templates/
+spring.thymeleaf.suffix=.html
+
+# 4. Cấu hình Spring Mail (Dùng cho Java Mail Sender)
+# spring.mail.host=smtp.gmail.com
+# spring.mail.port=587
+# spring.mail.username=your_email@gmail.com
+# spring.mail.password=your_app_password
+# spring.mail.properties.mail.smtp.auth=true
+# spring.mail.properties.mail.smtp.starttls.enable=true
+
+
+spring.jpa.open-in-view=false

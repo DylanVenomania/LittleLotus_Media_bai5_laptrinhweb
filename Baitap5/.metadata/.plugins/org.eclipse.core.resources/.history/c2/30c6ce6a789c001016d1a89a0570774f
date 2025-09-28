@@ -1,0 +1,43 @@
+package com.littlelotus.controller;
+
+import com.littlelotus.service.VideoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+@Controller
+public class AppController 
+{
+
+    @Autowired
+    private VideoService videoService;
+
+
+    @GetMapping("/login")
+    public String viewLoginPage() 
+    {
+  
+        return "login"; 
+    }
+    
+  
+    @GetMapping("/")
+    public String viewHomePage(Model model) 
+    {
+      
+        model.addAttribute("videos", videoService.findAll()); 
+        
+  
+        return "home/index"; 
+    }
+
+
+    @GetMapping("/videos/{id}")
+    public String viewVideoDetail(@PathVariable("id") Long id, Model model) 
+    {
+
+        return "home/video_detail";
+    }
+}

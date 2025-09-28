@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Little Lotus - Xem Videos Hot</title>
+    <link rel="stylesheet" th:href="@{/css/public.css}">
+</head>
+<body>
+    <header>
+        <h1>Little Lotus</h1>
+        <a th:href="@{/login}">Đăng nhập</a> | 
+        <a th:href="@{/admin}">Trang Admin</a>
+    </header>
+
+    <main class="video-feed">
+        <h2>Dòng Video Mới Nhất</h2>
+        <div th:each="video : ${videos}" class="video-item">
+            <h3 th:text="${video.title}">Tiêu đề Video</h3>
+            <p>Đăng bởi: <span th:text="${video.uploader.username}">Người dùng</span></p>
+            
+            <video width="320" height="240" controls>
+                <source th:src="${video.videoUrl}" type="video/mp4"> 
+                Trình duyệt của bạn không hỗ trợ tag video.
+            </video>
+            
+            <p th:text="${video.description}">Mô tả ngắn gọn.</p>
+            <hr>
+        </div>
+        
+        <div th:if="${videos.isEmpty()}">
+            <p>Chưa có video nào được đăng!</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Little Lotus</p>
+    </footer>
+</body>
+</html>

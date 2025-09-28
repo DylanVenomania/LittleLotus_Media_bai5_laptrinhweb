@@ -4,13 +4,16 @@
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;"/>
+		<item key="selection" value="th:classappend"/>
 		<list key="findhistory">
-			<item value="getUserByEmail"/>
-			<item value="&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;"/>
-			<item value="&lt;properties&gt;"/>
-			<item value="jdk"/>
-			<item value="&lt;groupId&gt;com.microsoft.sqlserver&lt;/groupId&gt;"/>
+			<item value="&lt;/video&gt;"/>
+			<item value="&lt;video&gt;"/>
+			<item value="&lt;a th:href=&quot;@{/admin}&quot; class=&quot;list-group-item&quot;"/>
+			<item value="th:classappend"/>
+			<item value="showEditForm"/>
+			<item value="PathVariable"/>
+			<item value="starter"/>
+			<item value="thymeleaf"/>
 		</list>
 		<list key="replacehistory">
 		</list>

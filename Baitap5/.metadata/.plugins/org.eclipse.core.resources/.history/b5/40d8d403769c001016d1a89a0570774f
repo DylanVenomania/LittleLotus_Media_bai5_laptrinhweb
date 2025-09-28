@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    </head>
+<body>
+    <div id="wrapper">
+        <div id="sidebar-wrapper">
+            <div class="sidebar-heading">Little Lotus Admin</div>
+            <div class="list-group list-group-flush">
+                <a th:href="@{/admin}" class="list-group-item"
+                   th:classappend="${#httpServletRequest.getServletPath().equals('/admin') ? 'active' : ''}">
+                   Dashboard
+                </a>
+                
+                <a th:href="@{/admin/categories}" class="list-group-item"
+                   th:classappend="${#httpServletRequest.getServletPath().startsWith('/admin/categories') ? 'active' : ''}">
+                   Quản lý Categories
+                </a>
+                
+                <a th:href="@{/admin/users}" class="list-group-item"
+                   th:classappend="${#httpServletRequest.getServletPath().startsWith('/admin/users') ? 'active' : ''}">
+                   Quản lý Users
+                </a>
+                
+                <a th:href="@{/admin/videos}" class="list-group-item"
+                   th:classappend="${#httpServletRequest.getServletPath().startsWith('/admin/videos') ? 'active' : ''}">
+                   Quản lý Videos
+                </a>
+            </div>
+        </div>
+        </div>
+</body>
+</html>

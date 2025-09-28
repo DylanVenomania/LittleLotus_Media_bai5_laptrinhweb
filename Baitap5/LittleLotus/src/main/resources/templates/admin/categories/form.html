@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout}">
+<head>
+    <title layout:title-fragment="title">[[${pageTitle}]]</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <h1>[[${pageTitle}]]</h1>
+
+        <form th:action="@{/admin/categories/save}" method="post" th:object="${category}">
+            <input type="hidden" th:field="*{id}" />
+
+            <div>
+                <label>Tên Category:</label>
+                <input type="text" th:field="*{name}" required minlength="2" maxlength="128" />
+            </div>
+            
+            <div>
+                <label>Mô tả:</label>
+                <textarea th:field="*{description}" rows="5" required minlength="10" maxlength="255"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-submit">Lưu</button>
+            <a th:href="@{/admin/categories}" class="btn btn-cancel">Hủy</a>
+        </form>
+    </div>
+</body>
+</html>

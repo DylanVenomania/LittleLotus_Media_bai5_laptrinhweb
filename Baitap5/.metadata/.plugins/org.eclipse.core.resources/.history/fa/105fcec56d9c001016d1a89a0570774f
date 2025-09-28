@@ -1,0 +1,14 @@
+package com.littlelotus.repository;
+
+import com.littlelotus.entity.Video;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import java.util.List;
+
+public interface VideoRepository extends JpaRepository<Video, Long> {
+
+    @Query("SELECT v FROM Video v JOIN FETCH v.uploader JOIN FETCH v.category")
+    List<Video> findAllEagerly();
+    
+    List<Video> findByTitleContainingIgnoreCase(String keyword);
+}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý Categories</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { color: #333; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .success { color: green; font-weight: bold; }
+        .btn { padding: 5px 10px; margin-right: 5px; text-decoration: none; border-radius: 3px; }
+        .btn-add { background-color: #007bff; color: white; }
+        .btn-edit { background-color: #ffc107; color: #333; }
+        .btn-delete { background-color: #dc3545; color: white; }
+    </style>
+</head>
+<body>
+    <h1>Quản lý Categories</h1>
+
+    <a th:href="@{/admin/categories/new}" class="btn btn-add">Thêm Category Mới</a>
+    <p th:if="${message}" class="success" th:text="${message}"></p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tên Category</th>
+                <th>Mô tả</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="cat : ${categories}">
+                <td th:text="${cat.id}">1</td>
+                <td th:text="${cat.name}">Yoga</td>
+                <td th:text="${cat.description}">Video về Yoga</td>
+                <td>
+                    <a th:href="@{'/admin/categories/edit/' + ${cat.id}}" class="btn btn-edit">Sửa</a>
+                    
+                    <a th:href="@{'/admin/categories/delete/' + ${cat.id}}" class="btn btn-delete"
+                       onclick="return confirm('Bạn có chắc chắn muốn xóa Category ID ' + [[${cat.id}]] + '?');">Xóa</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

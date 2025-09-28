@@ -28,7 +28,7 @@
 	</section>
 	<section name="NewClassCreationWizard.dialogBounds">
 		<item key="DIALOG_X_ORIGIN" value="227"/>
-		<item key="DIALOG_Y_ORIGIN" value="-26"/>
+		<item key="DIALOG_Y_ORIGIN" value="7"/>
 		<item key="DIALOG_WIDTH" value="571"/>
 		<item key="DIALOG_HEIGHT" value="656"/>
 		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
@@ -87,6 +87,16 @@
 		<item key="openinbrowser" value="false"/>
 		<item key="source" value="1.3"/>
 		<section name="projects">
+			<section name="LittleLotus">
+				<item key="href" value=""/>
+				<item key="destdir" value="E:\Baitap5\LittleLotus\doc"/>
+				<item key="antpath" value="E:\Baitap5\LittleLotus\javadoc.xml"/>
+			</section>
 		</section>
+	</section>
+	<section name="JavaBuildConfigurationBlock">
+		<item key="expanded0" value="true"/>
+		<item key="expanded1" value="false"/>
+		<item key="expanded2" value="false"/>
 	</section>
 </section>

@@ -1,0 +1,15 @@
+spring.application.name=LittleLotus
+
+# 1. Cấu hình Database MS SQL Server
+spring.datasource.url=jdbc:sqlserver://localhost:1433;databaseName=LittleLotusMediaDB
+spring.datasource.username=sa
+spring.datasource.password=123456789
+spring.datasource.driver-class-name=com.microsoft.sqlserver.jdbc.SQLServerDriver
+
+# 2. Cấu hình JPA (Jakarta Persistence)
+# Hỗ trợ tự động tạo/cập nhật bảng dựa trên Entity
+spring.jpa.hibernate.ddl-auto=update 
+# Hiển thị câu lệnh SQL ra console
+spring.jpa.show-sql=true 
+# Định danh cho Dialect của MS SQL Server
+spring.jpa.database-platform=org.hibernate.dialect.SQLServerDialect

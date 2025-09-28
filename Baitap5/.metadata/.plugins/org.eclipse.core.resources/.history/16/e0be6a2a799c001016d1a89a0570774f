@@ -1,0 +1,47 @@
+package com.littlelotus.controller;
+
+import com.littlelotus.service.VideoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
+@Controller
+public class AppController 
+{
+
+    @Autowired
+    private VideoService videoService;
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request) 
+    {
+        HttpSession session = request.getSession(false);
+        if (session != null) 
+        {
+            session.invalidate();
+        }
+        
+        return "redirect:/login"; 
+    }
+    
+    
+    @GetMapping("/login")
+    public String viewLoginPage()
+    {
+        return "login"; 
+    }
+    
+    @GetMapping("/")
+    public String viewHomePage(Model model)
+    {
+        model.addAttribute("videos", videoService.findAll()); 
+        
+        return "home/index"; 
+    }
+    
+    
+}

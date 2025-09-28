@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title layout:title-fragment="title">Admin Dashboard - Little Lotus</title>
+    
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+    
+    <th:block layout:fragment="custom-css"></th:block>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="sidebar-wrapper">
+            <div class="sidebar-heading">Little Lotus Admin</div>
+            <div class="list-group list-group-flush">
+                <a th:href="@{/admin/dashboard}" class="list-group-item">Dashboard</a>
+                <a th:href="@{/admin/categories}" class="list-group-item"
+                   th:classappend="${#httpServletRequest.requestURI.startsWith('/admin/categories') ? 'active' : ''}">
+                   Quản lý Categories
+                </a>
+                <a th:href="@{/admin/users}" class="list-group-item"
+                   th:classappend="${#httpServletRequest.requestURI.startsWith('/admin/users') ? 'active' : ''}">
+                   Quản lý Users
+                </a>
+                <a th:href="@{/admin/videos}" class="list-group-item"
+                   th:classappend="${#httpServletRequest.requestURI.startsWith('/admin/videos') ? 'active' : ''}">
+                   Quản lý Videos
+                </a>
+                </div>
+        </div>
+
+        <div id="page-content-wrapper">
+            <header style="background: white; padding: 10px; border-bottom: 1px solid #ddd; margin-bottom: 20px;">
+                Chào mừng, Admin! 
+                <a href="#" style="float: right;">Logout</a>
+            </header>
+
+            <div layout:fragment="content">
+                </div>
+            
+            </div>
+    </div>
+    
+    <th:block layout:fragment="custom-js"></th:block>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý Users</title>
+    <style> /* CSS đồng bộ */ </style>
+</head>
+<body>
+    <h1>Quản lý Users</h1>
+
+    <a th:href="@{/admin/users/new}" class="btn btn-add">Thêm User Mới</a>
+    <p th:if="${message}" class="success" th:text="${message}"></p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>Username</th>
+                <th>Role</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}">1</td>
+                <td th:text="${user.email}">user@email.com</td>
+                <td th:text="${user.username}">user_name</td>
+                <td th:text="${user.role}">USER</td>
+                <td>
+                    <a th:href="@{'/admin/users/edit/' + ${user.id}}" class="btn btn-edit">Sửa</a>
+                    <a th:href="@{'/admin/users/delete/' + ${user.id}}" class="btn btn-delete"
+                       th:onclick="|return confirm('Bạn có chắc chắn muốn xóa User ID ${user.id}?');|">Xóa</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,114 @@
+package com.littlelotus.controller;
+
+import com.littlelotus.entity.Video;
+import com.littlelotus.service.VideoService;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Optional; 
+
+
+@RestController
+@RequestMapping("/api/admin/videos") 
+public class AdminVideoController 
+{
+    
+    @Autowired
+    private VideoService videoService;
+
+ 
+    @PostMapping
+    public ResponseEntity<Video> createVideo(@Valid @RequestBody Map<String, Object> videoPayload) {
+        try {
+           
+            Long uploaderId = ((Number) videoPayload.get("uploaderId")).longValue();
+            Long categoryId = ((Number) videoPayload.get("categoryId")).longValue();
+            
+            Video video = new Video();
+            video.setTitle((String) videoPayload.get("title"));
+            video.setDescription((String) videoPayload.get("description"));
+            video.setVideoUrl((String) videoPayload.get("videoUrl"));
+            video.setPublished((Boolean) videoPayload.getOrDefault("isPublished", false));
+
+            Video savedVideo = videoService.save(video, uploaderId, categoryId);
+            return new ResponseEntity<>(savedVideo, HttpStatus.CREATED);
+        } 
+        catch (RuntimeException e) 
+        {
+            
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
+        }
+    }
+
+
+    // doc va tim kiem
+    @GetMapping
+    public List<Video> getAllOrSearchVideos(@RequestParam(required = false) String keyword) 
+    {
+        if (keyword != null && !keyword.isEmpty()) {
+            return videoService.search(keyword); // Tim theo tiêu đề
+        }
+        return videoService.findAll();
+    }
+    
+
+    // doc theo id
+    @GetMapping("/{id}")
+    public ResponseEntity<Video> getVideoById(@PathVariable Long id) 
+    {
+        return videoService.findById(id)
+                .map(video -> new ResponseEntity<>(video, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+    
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Video> updateVideo(@PathVariable Long id, @RequestBody Map<String, Object> videoPayload) 
+    {
+        
+        Optional<Video> videoOptional = videoService.findById(id);
+
+        if (videoOptional.isEmpty()) {
+            // truong hop 1 : ko tim thay video
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        //truong hop 2 : tim thay video va cap nhat
+        Video existingVideo = videoOptional.get();
+
+        try 
+        {
+            existingVideo.setTitle((String) videoPayload.get("title"));
+            existingVideo.setDescription((String) videoPayload.get("description"));
+            existingVideo.setVideoUrl((String) videoPayload.get("videoUrl"));
+            existingVideo.setPublished((Boolean) videoPayload.get("isPublished"));
+            
+            Long newUploaderId = ((Number) videoPayload.get("uploaderId")).longValue();
+            Long newCategoryId = ((Number) videoPayload.get("categoryId")).longValue();
+            
+            Video updatedVideo = videoService.save(existingVideo, newUploaderId, newCategoryId);
+            
+           
+            return new ResponseEntity<>(updatedVideo, HttpStatus.OK);
+            
+        } 
+        catch (RuntimeException e) 
+        {
+            System.err.println("Lỗi cập nhật video: " + e.getMessage());
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
+        }
+    }
+
+
+    // xoa
+    @DeleteMapping("/{id}")
+    public ResponseEntity<HttpStatus> deleteVideo(@PathVariable Long id) {
+        videoService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title layout:title-fragment="title">Admin Dashboard - Little Lotus</title>
+    
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+    
+    <th:block layout:fragment="custom-css"></th:block>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="sidebar-wrapper">
+            <div class="sidebar-heading">Little Lotus Admin</div>
+            <div class="list-group list-group-flush">
+                <a th:href="@{/admin}" class="list-group-item"
+                   th:classappend="${#httpServletRequest.requestURI.equals('/admin') ? 'active' : ''}">
+                   Dashboard
+                </a>
+                
+                <a th:href="@{/admin/categories}" class="list-group-item"
+                   th:classappend="${#httpServletRequest.requestURI.startsWith('/admin/categories') ? 'active' : ''}">
+                   Quản lý Categories
+                </a>
+                
+                <a th:href="@{/admin/users}" class="list-group-item"
+                   th:classappend="${#httpServletRequest.requestURI.startsWith('/admin/users') ? 'active' : ''}">
+                   Quản lý Users
+                </a>
+                
+                <a th:href="@{/admin/videos}" class="list-group-item"
+                   th:classappend="${#httpServletRequest.requestURI.startsWith('/admin/videos') ? 'active' : ''}">
+                   Quản lý Videos
+                </a>
+            </div>
+        </div>
+
+        <div id="page-content-wrapper">
+            <header>
+                <span>Chào mừng, Admin!</span> 
+                <a th:href="@{/logout}">Logout</a>
+            </header>
+
+            <main layout:fragment="content">
+                </main>
+        </div>
+    </div>
+    
+    <th:block layout:fragment="custom-js"></th:block>
+</body>
+</html>

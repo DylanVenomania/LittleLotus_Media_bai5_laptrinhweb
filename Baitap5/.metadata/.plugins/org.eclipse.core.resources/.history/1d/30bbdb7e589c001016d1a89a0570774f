@@ -1,0 +1,5 @@
+package com.littlelotus.entity;
+
+public class Category {
+
+}

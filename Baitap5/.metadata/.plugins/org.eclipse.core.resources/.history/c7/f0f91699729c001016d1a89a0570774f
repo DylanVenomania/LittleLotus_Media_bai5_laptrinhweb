@@ -1,0 +1,5 @@
+package com.littlelotus.config;
+
+public class AdminRequestConfig {
+
+}

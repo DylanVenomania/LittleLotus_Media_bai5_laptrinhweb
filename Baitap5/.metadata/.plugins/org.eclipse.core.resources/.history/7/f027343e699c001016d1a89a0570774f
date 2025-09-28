@@ -1,0 +1,73 @@
+package com.littlelotus.controller;
+
+import com.littlelotus.entity.User;
+import com.littlelotus.service.UserService;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/admin/users") 
+public class AdminUserController 
+{
+    
+    @Autowired
+    private UserService userService;
+
+    // tao user moi
+    @PostMapping
+    public ResponseEntity<User> createUser(@Valid @RequestBody User user) 
+    {
+        User savedUser = userService.save(user);
+        return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
+    }
+
+    // doc va tim kiem
+    @GetMapping
+    public List<User> getAllOrSearchUsers(@RequestParam(required = false) String keyword) {
+        if (keyword != null && !keyword.isEmpty()) 
+        {
+            return userService.search(keyword); // Tim theo username
+        }
+        return userService.findAll();
+    }
+    
+    // doc theo id
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable Long id) 
+    {
+        return userService.findById(id)
+                .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+    
+    // cap nhat
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @Valid @RequestBody User userDetails) 
+    {
+        return userService.findById(id)
+                .map(user -> 
+                {
+                    user.setUsername(userDetails.getUsername());
+                    user.setEmail(userDetails.getEmail());
+                    user.setRole(userDetails.getRole());
+                    
+                    User updatedUser = userService.save(user);
+                    return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+                })
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+
+    // xoa
+    @DeleteMapping("/{id}")
+    public ResponseEntity<HttpStatus> deleteUser(@PathVariable Long id) 
+    {
+        userService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT); 
+    }
+}

@@ -1,5 +1,0 @@
-package com.littlelotus.media.config;
-
-public class WebSocketConfig {
-
-}

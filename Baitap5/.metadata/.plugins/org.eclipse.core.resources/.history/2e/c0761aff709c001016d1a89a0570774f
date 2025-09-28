@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý Videos</title>
+    <style> /* CSS đồng bộ */ </style>
+</head>
+<body>
+    <h1>Quản lý Videos</h1>
+
+    <a th:href="@{/admin/videos/new}" class="btn btn-add">Thêm Video Mới</a>
+    <p th:if="${message}" class="success" th:text="${message}"></p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tiêu đề</th>
+                <th>Uploader</th>
+                <th>Category</th>
+                <th>Published</th>
+                <th>Upload Date</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="video : ${videos}">
+                <td th:text="${video.id}">1</td>
+                <td th:text="${video.title}">Zen Flow</td>
+                <td th:text="${video.uploader.username}">superadmin</td> 
+                <td th:text="${video.category.name}">Yoga</td>
+				<td><span th:if="${video.published}">&#10003;</span></td>
+				<td th:text="${#temporals.format(video.uploadDate, 'dd-MM-yyyy')}">28-09-2025</td>
+				<td><a th:href="@{'/admin/videos/edit/' + ${video.id}}"
+					class="btn btn-edit">Sửa</a> <a
+					th:href="@{'/admin/videos/delete/' + ${video.id}}"
+					class="btn btn-delete"
+					th:onclick="|return confirm('Bạn có chắc chắn muốn xóa Video ID ${video.id}?');|">Xóa</a>
+				</td>
+			</tr>
+        </tbody>
+    </table>
+</body>
+</html>

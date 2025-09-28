@@ -1,9 +1,0 @@
-package com.littlelotus.media.config;
-
-import org.springframework.context.annotation.Configuration;
-
-@Configuration
-public class AppConfig 
-{
-    // Hiện tại không cần Bean cho passwordEncoder vì đang dùng NoOpPasswordEncoder
-}

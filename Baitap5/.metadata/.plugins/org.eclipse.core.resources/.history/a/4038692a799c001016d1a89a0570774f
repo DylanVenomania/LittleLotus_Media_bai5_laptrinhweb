@@ -1,0 +1,48 @@
+package com.littlelotus.service;
+
+import com.littlelotus.entity.User;
+import com.littlelotus.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class UserService 
+{
+
+    @Autowired
+    private UserRepository userRepository;
+
+    // tao/cap nhat
+    public User save(User user) 
+    {
+        return userRepository.save(user);
+    }
+
+    // doc (all)
+    public List<User> findAll() 
+    {
+        return userRepository.findAll();
+    }
+
+    // doc ( bang id )
+    public Optional<User> findById(Long id) 
+    {
+        return userRepository.findById(id);
+    }
+    
+    //xoa
+    public void deleteById(Long id) 
+    {
+        userRepository.deleteById(id);
+    }
+
+    // tim kiem
+    public List<User> search(String keyword) 
+    {
+        // Tim theo username
+        return userRepository.findByUsernameContainingIgnoreCase(keyword);
+    }
+}
