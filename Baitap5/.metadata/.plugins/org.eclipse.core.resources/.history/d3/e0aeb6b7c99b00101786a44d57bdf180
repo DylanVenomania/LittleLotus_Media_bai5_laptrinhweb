@@ -1,0 +1,5 @@
+package com.littlelotus.media.entity;
+
+public class Comment {
+
+}

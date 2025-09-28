@@ -1,0 +1,20 @@
+package com.littlelotus.media.dto;
+
+import com.littlelotus.media.entity.Comment;
+import lombok.*;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
+@Builder
+public class PostDTO 
+{
+    private Long id;
+    private String username;
+    private String content;
+    private String imageUrl;
+    private LocalDateTime createdAt;
+    private List<Comment> comments;
+}

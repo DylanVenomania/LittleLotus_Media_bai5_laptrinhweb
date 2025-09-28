@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item key="casesensitive" value="false"/>
+		<item key="wholeword" value="false"/>
+		<item key="isRegEx" value="false"/>
+		<item key="selection" value="&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;"/>
+		<list key="findhistory">
+			<item value="getUserByEmail"/>
+			<item value="&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;"/>
+			<item value="&lt;properties&gt;"/>
+			<item value="jdk"/>
+			<item value="&lt;groupId&gt;com.microsoft.sqlserver&lt;/groupId&gt;"/>
+		</list>
+		<list key="replacehistory">
+		</list>
+	</section>
+</section>

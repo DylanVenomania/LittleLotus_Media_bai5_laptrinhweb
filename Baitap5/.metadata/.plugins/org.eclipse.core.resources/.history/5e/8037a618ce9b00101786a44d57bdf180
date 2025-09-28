@@ -1,0 +1,60 @@
+package com.littlelotus.media.service;
+
+import com.littlelotus.media.dto.PostDTO;
+import com.littlelotus.media.dto.forms.PostForm;
+import com.littlelotus.media.entity.Post;
+import com.littlelotus.media.entity.User;
+import com.littlelotus.media.repository.PostRepository;
+import com.littlelotus.media.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.stereotype.Service;
+
+@Service
+public class PostService 
+{
+    private final PostRepository postRepository;
+    private final UserRepository userRepository;
+    private final SimpMessagingTemplate messagingTemplate;
+
+    @Autowired
+    public PostService(PostRepository postRepository, 
+    		UserRepository userRepository, 
+    		SimpMessagingTemplate messagingTemplate) 
+    {
+        this.postRepository = postRepository;
+        this.userRepository = userRepository;
+        this.messagingTemplate = messagingTemplate;
+    }
+
+    public Post createPost(String username, PostForm form) 
+    {
+        User author = userRepository.findByUsername(username).orElseThrow();
+        Post p = Post.builder()
+                .author(author)
+                .caption(form.getCaption())
+                .imageUrl(form.getImageUrl())
+                .likesCount(0)
+                .build();
+        Post saved = postRepository.save(p);
+
+        // push to websocket topic /topic/posts
+        PostDTO dto = new PostDTO(saved.getId(), saved.getImageUrl(), saved.getCaption(),
+                saved.getAuthor().getDisplayName(), saved.getCreatedAt());
+        messagingTemplate.convertAndSend("/topic/posts", dto);
+
+        return saved;
+    }
+
+    public Page<Post> getFeed(int page, int size) 
+    {
+        Pageable pageable = PageRequest.of(page, size);
+        return postRepository.findAllByOrderByCreatedAtDesc(pageable);
+    }
+
+    public Post findById(Long id) 
+    {
+        return postRepository.findById(id).orElseThrow();
+    }
+}

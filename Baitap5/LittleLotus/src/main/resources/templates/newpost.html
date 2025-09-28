@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New Post - LittleLotus</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"></div>
+
+<div class="container">
+    <h2>Create New Post</h2>
+    <form th:action="@{/post/new}" method="post" th:object="${postForm}">
+        <textarea th:field="*{content}" placeholder="What's on your mind?" rows="5"></textarea>
+        <input type="text" th:field="*{imageUrl}" placeholder="Image URL (optional)">
+        <button type="submit">Post</button>
+    </form>
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

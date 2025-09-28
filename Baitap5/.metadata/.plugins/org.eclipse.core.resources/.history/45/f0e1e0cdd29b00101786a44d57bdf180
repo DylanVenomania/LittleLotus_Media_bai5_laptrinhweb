@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head">
+    <title>LittleLotus - Feed</title>
+</head>
+<body>
+<!-- header -->
+<div th:replace="fragments/header :: *"></div>
+
+<section class="feed">
+    <div id="feed">
+        <div th:each="post : ${posts}" class="post-card">
+            <div class="post-header">
+                <span th:text="${post.author.displayName}">Author</span>
+                <span class="time" th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
+            </div>
+            <div class="post-image">
+                <img th:src="${post.imageUrl}" alt="post image"/>
+            </div>
+            <div class="post-caption">
+                <p th:text="${post.caption}"></p>
+            </div>
+            <div class="post-actions">
+                <a th:href="@{/post/{id}(id=${post.id})}">Comments (<span th:text="${#lists.size(post.comments)}">0</span>)</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.6.1/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+<script>
+    // Subscribe to websocket topic for new posts
+    const socket = new SockJS('/ws');
+    const stompClient = Stomp.over(socket);
+    stompClient.connect({}, function (frame) {
+        console.log('Connected: ' + frame);
+        stompClient.subscribe('/topic/posts', function (message) {
+            const data = JSON.parse(message.body);
+            // simple prepend new post to feed
+            const feed = document.getElementById('feed');
+            const html = `<div class="post-card">
+                <div class="post-header"><span>${escapeHtml(data.authorName)}</span><span class="time">${data.createdAt}</span></div>
+                <div class="post-image"><img src="${escapeHtml(data.imageUrl)}" alt="new"/></div>
+                <div class="post-caption"><p>${escapeHtml(data.caption || '')}</p></div>
+                <div class="post-actions"><a href="/post/${data.id}">Comments</a></div>
+            </div>`;
+            feed.insertAdjacentHTML('afterbegin', html);
+        });
+    });
+
+    function escapeHtml(unsafe) {
+        return unsafe ? unsafe.replace(/[&<"'>]/g, function (m) {
+            return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m];
+        }) : '';
+    }
+</script>
+
+<div th:replace="fragments/footer :: *"></div>
+</body>
+</html>

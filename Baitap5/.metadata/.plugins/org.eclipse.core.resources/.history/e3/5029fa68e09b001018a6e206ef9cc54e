@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head">
+    <title th:text="'Post #' + ${post.id}">Post</title>
+</head>
+<body>
+<div th:replace="fragments/header :: *"></div>
+
+<section class="single-post">
+    <div class="post-card">
+        <div class="post-header">
+            <span th:text="${post.author.displayName}">Author</span>
+            <span class="time" th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
+        </div>
+        <div class="post-image">
+            <img th:src="${post.imageUrl}" alt="post"/>
+        </div>
+        <div class="post-caption">
+            <p th:text="${post.caption}"></p>
+        </div>
+    </div>
+
+    <section class="comments">
+        <h3>Comments</h3>
+        <div th:each="c : ${post.comments}">
+            <p><strong th:text="${c.author.displayName}">User</strong>: <span th:text="${c.text}">text</span></p>
+        </div>
+
+        <div th:if="${sessionUser != null}">
+            <form th:action="@{/post/{id}/comment(id=${post.id})}" method="post" th:object="${commentForm}">
+                <label>Comment: <input type="text" th:field="*{text}"/></label>
+                <button type="submit">Send</button>
+            </form>
+        </div>
+        <div th:if="${sessionUser == null}">
+            <p><a href="/login">Login</a> to comment.</p>
+        </div>
+    </section>
+</section>
+
+<div th:replace="fragments/footer :: *"></div>
+</body>
+</html>

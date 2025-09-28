@@ -1,0 +1,45 @@
+package com.littlelotus.media.service;
+
+import com.littlelotus.media.entity.Post;
+import com.littlelotus.media.repository.PostRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class PostService 
+{
+
+    @Autowired
+    private PostRepository postRepository;
+
+    public List<Post> getAllPosts() 
+    {
+        return postRepository.findAll();
+    }
+
+    public Optional<Post> getPostById(Long id) {
+        return postRepository.findById(id);
+    }
+
+    public Post createPost(Post post) {
+        return postRepository.save(post);
+    }
+
+    public Post updatePost(Long id, Post postData) 
+    {
+        return postRepository.findById(id).map(post -> 
+        {
+            post.setCaption(postData.getCaption());
+            post.setImageUrl(postData.getImageUrl());
+            return postRepository.save(post);
+        }).orElseThrow(() -> new RuntimeException("Post not found"));
+    }
+
+    public void deletePost(Long id) 
+    {
+        postRepository.deleteById(id);
+    }
+}

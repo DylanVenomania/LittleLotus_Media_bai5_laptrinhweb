@@ -1,0 +1,40 @@
+package com.littlelotus.media.controller;
+
+import com.littlelotus.media.entity.Comment;
+import com.littlelotus.media.entity.Post;
+import com.littlelotus.media.service.CommentService;
+import com.littlelotus.media.service.PostService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+@Controller
+@RequiredArgsConstructor
+@RequestMapping("/posts")
+public class PostController 
+{
+
+    private final PostService postService;
+    private final CommentService commentService;
+
+    @GetMapping("/{id}")
+    public String getPost(@PathVariable Long id, Model model) 
+    {
+        Post post = postService.getPostById(id);
+        if (post == null) return "redirect:/";
+        model.addAttribute("post", post);
+        model.addAttribute("comments", commentService.getCommentsByPost(post));
+        return "post";
+    }
+
+    @PostMapping("/{id}/comment")
+    public String addComment(@PathVariable Long id, @ModelAttribute Comment comment) {
+        Post post = postService.getPostById(id);
+        if (post != null) 
+        {
+            commentService.addComment(post, comment);
+        }
+        return "redirect:/posts/" + id;
+    }
+}

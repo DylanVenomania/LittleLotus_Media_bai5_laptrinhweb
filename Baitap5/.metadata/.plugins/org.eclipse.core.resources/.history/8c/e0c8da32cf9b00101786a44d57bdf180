@@ -1,0 +1,36 @@
+package com.littlelotus.media.service;
+
+import com.littlelotus.media.entity.Comment;
+import com.littlelotus.media.entity.Post;
+import com.littlelotus.media.entity.User;
+import com.littlelotus.media.repository.CommentRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class CommentService 
+{
+    private final CommentRepository commentRepository;
+
+    public Comment addComment(User user, Post post, String content) {
+        Comment comment = Comment.builder()
+                .user(user)
+                .post(post)
+                .content(content)
+                .createdAt(LocalDateTime.now())
+                .build();
+        return commentRepository.save(comment);
+    }
+
+    public List<Comment> getCommentsByPost(Post post) {
+        return post.getComments();
+    }
+
+    public void deleteComment(Long id) {
+        commentRepository.deleteById(id);
+    }
+}

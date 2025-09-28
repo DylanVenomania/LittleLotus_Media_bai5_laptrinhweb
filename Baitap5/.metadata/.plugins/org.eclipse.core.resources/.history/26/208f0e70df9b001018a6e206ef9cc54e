@@ -1,0 +1,36 @@
+package com.littlelotus.media.service;
+
+import com.littlelotus.media.entity.Comment;
+import com.littlelotus.media.entity.Post;
+import com.littlelotus.media.repository.CommentRepository;
+import com.littlelotus.media.repository.PostRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class CommentService 
+{
+
+    @Autowired
+    private CommentRepository commentRepository;
+
+    @Autowired
+    private PostRepository postRepository;
+
+    public Comment addComment(Long postId, Comment comment) 
+    {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new RuntimeException("Post not found"));
+        comment.setPost(post);
+        return commentRepository.save(comment);
+    }
+
+    public List<Comment> getCommentsByPost(Long postId) 
+    {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new RuntimeException("Post not found"));
+        return commentRepository.findByPost(post);
+    }
+}

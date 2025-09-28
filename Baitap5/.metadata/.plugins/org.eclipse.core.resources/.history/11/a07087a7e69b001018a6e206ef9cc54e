@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - LittleLotus</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <h2>Login</h2>
+    <form th:action="@{/login}" method="post" th:object="${loginForm}">
+        <input type="text" th:field="*{username}" placeholder="Username">
+        <input type="password" th:field="*{password}" placeholder="Password">
+        <button type="submit">Login</button>
+        <div th:if="${error}" th:text="${error}" style="color:red;margin-top:10px;"></div>
+    </form>
+</div>
+</body>
+</html>

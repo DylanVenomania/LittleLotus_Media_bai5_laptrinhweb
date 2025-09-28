@@ -1,0 +1,43 @@
+package com.littlelotus.media.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+/**
+ * App configuration chung.
+ *
+ * NOTE: Đây là PasswordEncoder "plain-text" chỉ dùng cho mục đích phát triển / test.
+ * Tuyệt đối không dùng ở production. Khi muốn nâng cấp bảo mật, đổi sang BCrypt và hash password trong DB.
+ */
+@Configuration
+public class AppConfig
+{
+
+    // package-private để tránh một số cảnh báo IDE về "public @Bean method"
+    @Bean
+    PasswordEncoder passwordEncoder() 
+    {
+        return new PlainTextPasswordEncoder();
+    }
+
+    /**
+     * PasswordEncoder đơn giản để so sánh plain-text mật khẩu.
+    .
+     */
+    static class PlainTextPasswordEncoder implements PasswordEncoder {
+
+        @Override
+        public String encode(CharSequence rawPassword) {
+            // Trả trực tiếp (plain text) — chỉ cho test
+            return rawPassword == null ? null : rawPassword.toString();
+        }
+
+        @Override
+        public boolean matches(CharSequence rawPassword, String encodedPassword) {
+            if (rawPassword == null && encodedPassword == null) return true;
+            if (rawPassword == null || encodedPassword == null) return false;
+            return rawPassword.toString().equals(encodedPassword);
+        }
+    }
+}

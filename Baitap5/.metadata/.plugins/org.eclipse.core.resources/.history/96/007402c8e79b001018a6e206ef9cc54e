@@ -1,0 +1,18 @@
+package com.littlelotus.media.controller;
+
+import com.littlelotus.media.dto.SessionUser;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class HomeController {
+
+    @GetMapping("/")
+    public String home(Model model, HttpSession session) {
+        SessionUser user = (SessionUser) session.getAttribute("user");
+        model.addAttribute("user", user);
+        return "index"; // index.html
+    }
+}

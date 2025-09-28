@@ -1,0 +1,5 @@
+package com.littlelotus.media.dto.forms;
+
+public class PostForm {
+
+}

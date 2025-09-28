@@ -1,0 +1,5 @@
+package com.littlelotus.media.controller;
+
+public class PostController {
+
+}

@@ -1,0 +1,45 @@
+package com.littlelotus.media.service;
+
+import com.littlelotus.media.entity.Post;
+import com.littlelotus.media.repository.PostRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+@RequiredArgsConstructor
+public class PostService 
+{
+
+    private final PostRepository postRepository;
+
+    public List<Post> getAllPosts() {
+        return postRepository.findAll();
+    }
+
+    public Post getPostById(Long id) {
+        return postRepository.findById(id).orElse(null);
+    }
+
+    public Post createPost(Post post) {
+        return postRepository.save(post);
+    }
+
+    public void deletePost(Long id) {
+        postRepository.deleteById(id);
+    }
+
+    public Post updatePost(Long id, Post post) 
+    {
+        Optional<Post> existing = postRepository.findById(id);
+        if (existing.isPresent()) {
+            Post p = existing.get();
+            p.setCaption(post.getCaption());
+            p.setImageUrl(post.getImageUrl());
+            return postRepository.save(p);
+        }
+        return null;
+    }
+}
