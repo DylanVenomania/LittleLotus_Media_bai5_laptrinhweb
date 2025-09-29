@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout}">
+<head>
+    <title layout:title-fragment="title" th:text="${pageTitle != null ? pageTitle : 'Quản lý Videos'}"></title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style layout:fragment="custom-css">
+        .action-link {
+            color: var(--primary-color);
+            margin-right: 10px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .action-link:hover {
+            color: #40916c; /* Màu đậm hơn khi hover */
+        }
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        th {
+            background-color: var(--secondary-color); /* Xanh mint nhạt */
+            color: var(--text-color);
+            font-weight: 700;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        tr:hover {
+            background-color: #fcfcfc;
+        }
+        .new-link {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .new-link:hover {
+            background-color: #40916c;
+        }
+        /* Style cho tìm kiếm */
+        .search-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            gap: 20px;
+        }
+        .search-form {
+            display: flex;
+            flex-grow: 1;
+        }
+        .search-form input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px 0 0 5px;
+            flex-grow: 1;
+            font-size: 1em;
+        }
+        .search-form button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .search-form button:hover {
+            background-color: #40916c;
+        }
+        .search-results-info {
+            margin-bottom: 15px;
+            font-style: italic;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <main layout:fragment="content">
+        <h2 th:text="${pageTitle != null ? pageTitle : 'Quản lý Videos'}">Quản lý Videos</h2>
+        
+        <div class="search-container">
+            <a th:href="@{/admin/videos/new}" class="new-link">
+                 <i class="fas fa-plus-circle"></i> Thêm Video Mới
+            </a>
+
+            <form th:action="@{/admin/videos/search}" method="get" class="search-form">
+                <input type="text" name="keyword" th:value="${keyword}" 
+                       placeholder="Tìm kiếm theo tiêu đề..." required/>
+                <button type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
+
+        <div th:if="${keyword != null}" class="search-results-info">
+            Tìm thấy <span th:text="${videos.size()}">0</span> kết quả cho từ khóa **"<span th:text="${keyword}"></span>"**. 
+            <a th:href="@{/admin/videos}" style="color: var(--secondary-color); text-decoration: none; font-weight: bold;">(Hiển thị tất cả)</a>
+        </div>
+
+        <div th:if="${message}" class="alert-success" th:text="${message}" style="margin-top: 20px; padding: 10px; border: 1px solid #52b788; background-color: #e6ffe6; color: #333; border-radius: 5px;"></div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th><i class="fas fa-film"></i> Tiêu đề</th>
+                    <th><i class="fas fa-user-circle"></i> Người đăng</th>
+                    <th><i class="fas fa-tag"></i> Category</th>
+                    <th>Ngày Upload</th>
+                    <th><i class="fas fa-tools"></i> Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="video : ${videos}">
+                    <td th:text="${video.id}">1</td>
+                    <td th:text="${video.title}">Tiêu đề Video</td>
+                    <td th:text="${video.uploader != null ? video.uploader.username : 'N/A'}">uploader</td>
+                    <td th:text="${video.category != null ? video.category.name : 'N/A'}">Category</td>
+                    <td th:text="${video.uploadDate}">2025-01-01</td>
+                    <td>
+                        <a th:href="@{'/admin/videos/edit/' + ${video.id}}" class="action-link">
+                            <i class="fas fa-edit"></i> Sửa
+                        </a>
+                        <a th:href="@{'/admin/videos/delete/' + ${video.id}}" class="action-link"
+                           th:onclick="'return confirm(\'Bạn có chắc chắn muốn xóa Video ID ' + ${video.id} + ' không?\');'">
+                            <i class="fas fa-trash-alt"></i> Xóa
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div th:if="${videos.isEmpty() and keyword == null}" style="margin-top: 20px; color: #888;">
+            <p>Không có video nào được tìm thấy.</p>
+        </div>
+        <div th:if="${videos.isEmpty() and keyword != null}" style="margin-top: 20px; color: #888;">
+            <p>Không tìm thấy video nào khớp với từ khóa **"<span th:text="${keyword}"></span>"**.</p>
+        </div>
+    </main>
+</body>
+</html>
