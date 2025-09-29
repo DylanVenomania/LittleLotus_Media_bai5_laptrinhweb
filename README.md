@@ -1,4 +1,4 @@
-# 🌸 LittleLotus Media — Trang Media Chữa Lành
+<img width="1900" height="608" alt="image" src="https://github.com/user-attachments/assets/e59c6008-6282-4924-8247-8012f55aba86" /># 🌸 LittleLotus Media — Trang Media Chữa Lành
 
 ## Tôn Hoàng Cầm - 2311018
 ---
@@ -70,18 +70,26 @@
 ---
 
 #### Quản lý Video
+* **Tìm kiếm**
+<img width="1886" height="598" alt="image" src="https://github.com/user-attachments/assets/27b12603-8d33-47bb-b727-a442d1ec06ca" />
+<img width="1890" height="466" alt="image" src="https://github.com/user-attachments/assets/64323afe-2ca0-4a7c-83f1-10b410bfda2f" />
 
 * **Thêm Video**
-
-  <img width="1207" height="788" src="https://github.com/user-attachments/assets/d3066c30-5f93-42aa-b176-3911686de392" />  
+<img width="928" height="572" alt="image" src="https://github.com/user-attachments/assets/c47ad412-094f-4ed3-8f87-e549832c6543" />
+<img width="1900" height="608" alt="image" src="https://github.com/user-attachments/assets/b05b6529-2ead-4fae-b68d-aefd86cda750" />
+* ***Kết quả***
+* <img width="1672" height="965" alt="image" src="https://github.com/user-attachments/assets/3e118fb7-bc10-4a1a-bcbd-387ecd414532" />
 
 * **Chỉnh sửa Video**
-
-  <img width="1177" height="751" src="https://github.com/user-attachments/assets/ba02bb30-35f3-4a49-b086-8405adeafcb2" />  
+<img width="996" height="655" alt="image" src="https://github.com/user-attachments/assets/e4a46e67-32e0-48b5-b431-6b793f63d9b5" />
+<img width="1873" height="676" alt="image" src="https://github.com/user-attachments/assets/bc2aa568-c095-4f3a-9eac-bb30202c905e" />
+* ***Kết quả***
+* <img width="1555" height="960" alt="image" src="https://github.com/user-attachments/assets/867c3094-a5b0-45cb-ac70-51268158ad1c" />
 
 * **Xóa Video**
+<img width="1682" height="567" alt="image" src="https://github.com/user-attachments/assets/2f8c0328-6200-4ef3-8d3a-d8c4318f0d7b" />
+ <img width="1682" height="567" alt="image" src="https://github.com/user-attachments/assets/24118fa6-6ad8-4b60-a70c-07f636c951fa" />
 
-  <img width="1583" height="680" src="https://github.com/user-attachments/assets/ff5405e7-bd49-42c0-8dff-7f59482ebd4d" />  
 
 ---
 
