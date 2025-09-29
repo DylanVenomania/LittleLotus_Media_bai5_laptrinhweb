@@ -1,4 +1,4 @@
-<img width="1900" height="608" alt="image" src="https://github.com/user-attachments/assets/e59c6008-6282-4924-8247-8012f55aba86" /># 🌸 LittleLotus Media — Trang Media Chữa Lành
+# 🌸 LittleLotus Media — Trang Media Chữa Lành
 
 ## Tôn Hoàng Cầm - 2311018
 ---
